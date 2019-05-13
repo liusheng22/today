@@ -50,7 +50,7 @@
 ## 项目地址
 * 移动端: [移动端web](http://laijiayang.cn/today)
 * APK下载：[APK](http://laijiayang.cn/today/today.apk)
-* Github：[APK](http://github.com/liusheng22/today)
+* Github：[Github](http://github.com/liusheng22/today)
 
 ## 关于作者
 ```javascript
