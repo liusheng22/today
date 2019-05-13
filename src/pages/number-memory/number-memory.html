@@ -1,0 +1,90 @@
+<ion-header #ionHeader no-border >
+  <ion-navbar #header >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>数字记忆</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="game_container">
+    <!-- 游戏初始化首页 -->
+    <div class="game_init" *ngIf="isGameInit" >
+      <div>
+        Are you ready?
+      </div>
+      <div>
+        <a class="start_btn" (tap)="gameInitEvent()" >
+          START
+        </a>
+      </div>
+    </div>
+
+    <!-- 游戏开始 -->
+    <div class="game_begin" *ngIf="isGameBegin">
+      <div class="show_number_str">
+        {{randomNum}}
+      </div>
+      <div class="memory_strip">
+        记忆时间倒计时：<a style="color:red">{{intervalNum}}</a>
+      </div>
+    </div>
+
+    <!-- 游戏答题中 -->
+    <div class="game_hand" *ngIf="isGameHand">
+      <div class="number_input_str">
+        <ion-item>
+          <ion-label floating>数字：</ion-label>
+          <ion-input #numInput type="number" [(ngModel)]="inputNum" (keypress)='gameHandEvent(true, $event)' ></ion-input>
+        </ion-item>
+      </div>
+      <div>
+        <a class="end_btn" (tap)="gameHandEvent(false)">确定</a>
+      </div>
+    </div>
+
+    <!-- 游戏一个关卡结束 -->
+    <div class="game_level_over" *ngIf="isGameOver">
+      <div class="game_level">
+        <div>
+          <p>
+            数字：
+          </p>
+          <p>{{randomNum}}</p>
+        </div>
+        <div>
+          <p>
+            你的答案：
+          </p>
+          <p class="answer_true" *ngIf="isAnswer">{{inputNum}}</p>
+          <p class="answer_false" *ngIf="!isAnswer">{{inputNum}}</p>
+        </div>
+        <div>
+          <p>
+            Level {{initNum}}
+          </p>
+        </div>
+      </div>
+      <div>
+        <a class="next_btn" (tap)="gameNextEvent()">NEXT</a>
+        <a class="next_btn" (tap)="gameOverEvent()">Over</a>
+      </div>
+    </div>
+
+    <!-- 游戏排名 -->
+    <div class="reaction_rank" *ngIf="rankList.length">
+        <ion-list>
+          <ion-item *ngFor="let v of rankList, let i = index" >
+              <ion-avatar item-start>
+                <img [src]="getUserAvatar(i)">
+              </ion-avatar>
+              <h2>{{getUserNickname(i)}}</h2>
+              <h3>最高等级：{{v.level}} 级</h3>
+              <p>{{getUserIntro(i)}}</p>
+              <ion-note item-end>No.{{i+1}}</ion-note>
+          </ion-item>
+        </ion-list>
+    </div>
+  </div>
+</ion-content>

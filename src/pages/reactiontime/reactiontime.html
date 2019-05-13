@@ -1,0 +1,48 @@
+<ion-header #ionHeader no-border >
+  <ion-navbar #header >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>反应时间</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="reaction_content">
+    <div class="action_content" #background>
+      <div class="action_text" (tap)="handleReaction()" *ngIf="isShowWait" >等待颜色变成绿色</div>
+      <!-- 介绍游戏规则 -->
+      <div class="action_presentation" (tap)="beginGame()" *ngIf="isShowBegin" >
+        <div>
+          <p>点击便开始</p>
+          <p>当红色变为绿色时,要尽快单击</p>
+        </div>
+      </div>
+      <div class="action_click" (tap)="handleClick()" *ngIf="isShowClick" >快点击啊</div>
+      <!-- <div class="action_fast" (tap)="beforeHandle()" *ngIf="isShowFast" >还没到呢,你点太快了，再试一次吧</div> -->
+      <div class="action_fast" (tap)="againGame()" *ngIf="isShowFast" >还没到呢,你点太快了，再试一次吧</div>
+      <!-- <div class="action_complete" (tap)="justHandle()" *ngIf="isShowComplete" > -->
+      <div class="action_complete" (tap)="againGame()" *ngIf="isShowComplete" >
+          <div>
+            <p>速度：{{timing.result}}ms</p>
+            <p>再试一次吧,说不定成绩会更好呢?</p>
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="reaction_rank" *ngIf="rankList.length">
+      <ion-list>
+        <ion-item *ngFor="let v of rankList, let i = index" >
+            <ion-avatar item-start>
+              <img [src]="getUserAvatar(i)">
+            </ion-avatar>
+            <h2>{{getUserNickname(i)}}</h2>
+            <h3>反应速度：{{v.time}}ms</h3>
+            <p>{{getUserIntro(i)}}</p>
+            <ion-note item-end>No.{{i+1}}</ion-note>
+        </ion-item>
+      </ion-list>
+  </div>
+</ion-content>

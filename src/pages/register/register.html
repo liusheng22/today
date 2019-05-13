@@ -1,0 +1,78 @@
+<ion-content>
+  <div class="bg_register" (swipeLeft)="onDragLeft($event)" (swipeRight)="backLastInput($event)" >
+    <div class="bg_animate"></div>
+
+    <!-- 注册 -->
+    <div class="register_title">SIGN UP</div>
+    <div *ngFor="let v of userInfo; let i = index">
+      <div class="edit_info_box" *ngIf="isShowUserInfo === i" >
+        <div class="input_box">
+          <div class="input">
+            <input id="{{v.id}}" placeholder="{{v.placeholder}}" type="text" [(ngModel)]="v.value" (focus)="focus(i)" (blur)="blur(i)" (input)="input()" >
+          </div>
+          <label class="input_label" for="{{v.id}}">{{v.text}}</label>
+        </div>
+        <div class="next_btn">
+            <button class="next" (click)="next(i)" >Next</button>
+            <button class="next_after" >Next</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast" *ngIf="isShowUserInfo === userInfo.length" (click)="onDragLeft()" >
+      {{message}}
+    </div>
+  </div>
+
+  <!-- 登录 -->
+  <div class="content_right" (swipeRight)="onDragRight($event)" >
+    <div class="content_right_title">SIGN IN</div>
+    <div class="login_input_box">
+      <div class="login_box">
+        <div class="tel_input">
+          <input id="tel_input" [placeholder]="login.tel.placeholder" type="Number" [(ngModel)]="login.tel.value" (focus)="loginFocus(0)" (blur)="loginBlur(0)" (input)="loginInput()" >
+        </div>
+        <div class="pwd_input">
+          <input id="pwd_input" [placeholder]="login.pwd.placeholder" type="password" [(ngModel)]="login.pwd.value" (focus)="loginFocus(1)" (blur)="loginBlur(1)" >
+        </div>
+      </div>
+      <button class="login_btn" (click)="loginEvent()" >Login</button>
+    </div>
+  </div>
+
+  <!-- 提示左滑 -->
+  <div class="to_login" *ngIf="showSwipe.left.isShow" (swipeLeft)="onDragLeft($event)" >
+    <div class="to_login_top">
+      <div class="top_arrow_left"></div>
+    </div>
+    <span class="left_swipe">往左滑登录</span>
+    <div class="to_login_bottom">
+      <div class="bottom_arrows_left"></div>
+    </div>
+  </div>
+
+  <!-- 提示右滑 -->
+  <div class="to_register" *ngIf="showSwipe.right.isShow" (swipeRight)="onDragRight($event)" >
+    <div class="to_register_top">
+      <div class="top_arrow_right"></div>
+    </div>
+    <span class="right_swipe">往右滑注册</span>
+    <div class="to_register_bottom">
+      <div class="bottom_arrow_right"></div>
+    </div>
+  </div>
+
+  <!-- 提示右滑返回 -->
+  <div class="to_back" *ngIf="showSwipe.back.isShow" (swipeRight)="backLastInput($event)" >
+    <div class="to_back_top">
+      <div class="top_arrow_right_back"></div>
+    </div>
+    <span class="right_swipe_back">右滑上一步</span>
+    <div class="to_back_bottom">
+      <div class="bottom_arrow_right_back"></div>
+    </div>
+  </div>
+
+  <div class="bg_login">
+  </div>
+
+</ion-content>

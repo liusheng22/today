@@ -1,0 +1,638 @@
+page-today {
+    .shade{
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: rgba($color: #000, $alpha: 0.1);
+    }
+    .close_shade{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        left: 50%;
+        bottom: 50%;
+        bottom: 0%;
+        transition: .5s all;
+        margin-left: -25px;
+        border-radius: 100%;
+        background-color: #000;
+        text-align: center;
+        line-height: 50px;
+    }
+    .close_shade .icon{
+        width: 100%;
+        height: 100%;
+        font-size: 30px;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+    }
+    .disable_other_shade{
+        width: 100%;
+        height: 100%;
+        z-index: 99;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: rgba($color: #000, $alpha: 0.1);
+    }
+    .close_other{
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        right: 0px;
+        top: -25px;
+        top: 0;
+        -webkit-transition: .5s all;
+        transition: .5s all;
+        border-radius: 100%;
+        background-color: transparent;
+        text-align: center;
+        line-height: 20px;
+        display: none;
+    }
+    .close_other .icon{
+        width: 100%;
+        height: 100%;
+        font-size: 25px;
+        color: #000;
+        text-align: center;
+        line-height: 30px;
+    }
+    .header{
+        height: 200px ;
+        transition: .5s all;
+    }
+    .header::after, .header-md::after{
+        background: none;
+    }
+    .title_content{
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: .1s all;
+    }
+    .today_weather{
+        width: 50px;
+        height: 50px;
+        // background-image: url('http://laijiayang.cn/todolist/imgs/weather/101.png');
+        // background-image: url('http://laijiayang.cn/todolist/imgs/weather/core_weather_few_clouds.png');
+        background-size: contain;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+    .show_time{
+        width: 100px;
+        height: 50px;
+        position: absolute;
+        // right: 5px;
+        // top: 65px;
+        left: 5px;
+        top: 40px;
+    }
+    .show_time_year, .show_time_month{
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        right: 0;
+        padding-left: 2px;
+        color: gray;
+    }
+    .show_time_year{
+        bottom: 0;
+        font-size: 12px;
+        padding-left: 2px;
+        line-height: 20px;
+    }
+    .show_time_month{
+        top: 0;
+        font-size: 14px;
+        line-height: 40px;
+    }
+    .show_time_today{
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        font-size: 42px;
+        line-height: 50px;
+        color: #545454;
+    }
+    .show_time_date{
+        width: 100px;
+        height: auto;
+        position: absolute;
+        left: 5px;
+        top: 85px;
+        text-align: left;
+        color: gray;
+    }
+    .today_text{
+        width: 230px;
+        height: 30px;
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        margin-left: -100px;
+    }
+    .today_weather_temp{
+        width: 100px;
+        height: 50px;
+        background-size: contain;
+        position: absolute;
+        right: 5px;
+        top: 55px;
+        text-align: right;
+        font-size: 20px;
+        color: #e6e6e6;
+    }
+
+
+    .toolbar{
+        height: 100%;
+        position: relative;
+    }
+    .toolbar-background {
+        background-image: url(../../assets/img/weather/city_other_cloudy.png);
+        background-image: url(../../assets/img/weather/city_other_rainy.png);
+        background-image: url(../../assets/img/weather/city_other_sunny.png);
+        background-image: url('http://laijiayang.cn/todolist/imgs/weather/city_bg/city_other_sunny.png');
+        background-size: cover;
+    }
+    .bar-buttons{
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+    }
+    .content{
+        background-image: url(../../assets/img/weather/bg_main_day.png);
+        background-image: url(../../assets/img/weather/bg_1.png);
+        background-image: url(../../assets/img/weather/bg_2.png);
+        background-image: url('http://laijiayang.cn/todolist/imgs/today/bg_2.png');
+        // background-image: url(../../assets/img/weather/rain1_top.png);
+        // background-image: url(../../assets/img/weather/rain2_top.png);
+        background-color: #9cb0bb;
+        background-color: #74b8ff;
+        background-color: #30daff;
+        background-size: cover;
+        transition: .5s all;
+    }
+
+
+    @keyframes scaleSmall {
+        to{transform: scale(0) translateX(60px) translateY(60px)}
+    }
+    @keyframes nameMoveX {
+        to{transform: scale(1) translateX(-65px)}
+    }
+    @keyframes nameMoveY {
+        to{transform: scale(1) translateY(-20px)}
+    }
+    .add_list{
+        position: fixed;
+        bottom: 75px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        background-color: #b9c356;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 50px;
+        z-index: 1000;
+    }
+    .add_list .icon{
+        width:100%;
+        height: 100%;
+        font-size: 30px;
+        line-height: 50px;
+        transition: .5s all;
+    }
+    .add_list_name{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 0px;
+        height: 0px;
+        background-color: #b9c356;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 50px;
+        display: none;
+    }
+    .add_list_name_addClass::after{
+        // animation: nameMoveY 1s cubic-bezier(0,1.55,.99,-0.59) forwards;
+        animation: nameMoveY .5s ease-in forwards;
+    }
+    .add_list_name::after{
+        content: '待办组';
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 50px;
+        height: 50px;
+        background-color: yellowgreen;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 50px;
+        transform: scale(0.1)
+    }
+    .add_list_name .icon{
+        width:100%;
+        height: 100%;
+        font-size: 50px;
+    }
+    @keyframes itemMoveX {
+        // to{transform: scale(1) translateX(-15px)}
+        to{transform: scale(1) translateX(-30px)}
+    }
+    @keyframes itemMoveY {
+        // to{transform: scale(1) translateY(-70px)}
+        to{transform: scale(1) translateY(-35px)}
+    }
+    .add_list_item{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 0px;
+        height: 0px;
+        background-color: #b9c356;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 50px;
+        display: none;
+    }
+    .add_list_item_addClass::after{
+        // animation: itemMoveY 1s cubic-bezier(0,1.55,.99,-0.59) forwards;
+        animation: itemMoveY .5s ease-in forwards;
+    }
+    .add_list_item::after{
+        content: '待办\A事项';
+        display: block;
+        white-space: pre-wrap;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 50px;
+        height: 50px;
+        background-color: yellowgreen;
+        color: #fff;
+        border-radius: 100%;
+        text-align: center;
+        line-height: 50px;
+        transform: scale(0.1);
+        height: 40px;
+        line-height: 15px;
+        padding-top: 10px;
+    }
+    .add_list_item .icon{
+        width:100%;
+        height: 100%;
+        font-size: 50px;
+    }
+
+    
+    /* 浮动 添加待办组 */
+    .add_group_list{
+        color: #fff;
+    }
+
+    /* 待办组 & 待办事项 公共样式 */
+    .add_group_box, .add_items_box{
+        width: 340px;
+        min-height: 200px;
+        height: auto;
+        position: fixed;
+        top: 95px;
+        top: -150px;
+        left: 50%;
+        margin-left: -170px;
+        background: #f3f3f3;
+        z-index: 100;
+        transition: .5s all;
+        border-radius: 15px;
+    }
+    .add_group_title, .add_items_title{
+        height: 28px;
+        line-height: 28px;
+        position: absolute;
+        top: -14px;
+        left: 25px;
+        background-color: #000;
+        border-radius: 8px;
+        color: #fff;
+        padding: 0px 20px;
+        font-size: 14px;
+    }
+    .add_group, .add_items{
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+    .add_input_box{
+        width: 270px;
+        height: 30px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .add_group_input_box, .add_items_input_box{
+        display: inline-block;
+        vertical-align: middle;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        width: 220px;
+        height: 30px;
+        line-height: 28px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        transition: .3s all;
+        background: #fff;
+        border: 1px solid #6b6969;
+        border-right: none;
+    }
+    .add_group_input_box input, .add_items_input_box input{
+        width: 95%;
+        height: 100%;
+        line-height: 30px;
+        position: absolute;
+        left: 5%;
+        border: none;
+        font-size: 14px;
+        outline: medium;
+        color: #000;
+        background: transparent;
+    }
+    .add_group_input_box input::-webkit-input-placeholder, .add_items_input_box input::-webkit-input-placeholder{//webkit内核
+        // color: #D6D0CA;
+        color: rgba($color: #000, $alpha: 0.36);
+        font-size:15px;
+    }
+    .add_group_event, .add_items_event{
+        width: 50px;
+        height: 30px;
+        position: absolute;
+        left: 220px;
+        top: 0;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 1px solid #6b6969;
+    }
+    .add_group_event .icon, .add_items_event .icon{
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        font-size: 30px;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        background-color: #7dc3ca;
+        color: #fff;
+    }
+    .add_group_list_box, .add_items_list_box{
+        width: 270px;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+    .add_group_list, .add_items_list{
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 4px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+    }
+
+
+    /* 浮动 添加待办事项 */
+    .add_items_list{
+        border: 1px solid #000;
+        color: #000;
+        height: 26px;
+        line-height: 16px;
+    }
+    .add_items_list_box .add_items_list_active{
+        background-color: #000;
+        color: #fff;
+    }
+
+
+    /* 待办事项列表 */
+    .group_items_box{
+        width: 340px;
+        min-height: 200px;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 30px;
+        background-color: #f3f3f3;
+        background-color: #fff;
+        position: relative;
+        border-radius: 15px;
+        -moz-box-shadow:0px 0px 15px #333333; 
+        -webkit-box-shadow:0px 0px 15px #333333; 
+        box-shadow:0px 0px 15px #333333;
+    }
+    .group_items_title{
+        height: 28px;
+        line-height: 28px;
+        position: absolute;
+        top: -14px;
+        left: 25px;
+        background-color: #000;
+        border-radius: 8px;
+        color: #fff;
+        padding: 0px 20px;
+        font-size: 14px;
+    }
+    .group_items{
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+    .items_title{
+        width: 90%;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1em;
+    }
+    .items_checked_on, .items_checked_off{
+        width: 10%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .items_checked_on .icon, .items_checked_off .icon{
+        width: 100%;
+        height: 100%;
+        font-size: 1.3em;
+    }
+    .group_items .label{
+        text-overflow: clip !important;
+    }
+    .side_checked{
+        background-color: #fff;
+        color: #000;
+        color: gray;
+    }
+    .side_checked .icon{
+        width: 100%;
+        height: 100%;
+        padding: 0 !important;
+        font-size: 1.8em;
+    }
+
+
+    /* 修改 待办事项名称 */
+    .edit_items_box{
+        width: 340px;
+        min-height: 100px;
+        height: auto;
+        position: fixed;
+        top: 95px;
+        top: -150px;
+        left: 50%;
+        transition: .5s all;
+        margin-left: -170px;
+        background-color: #f3f3f3;
+        background-color: transparent;
+        z-index: 100;
+        border-radius: 15px;
+    }
+    .add_items_input_box ion-input{
+        height: 100%;
+    }
+    .add_items_input_box ion-input .text-input{
+        margin: 0 !important;
+    }
+    .edit_items{
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+
+
+    /* 修改待办组名称 & 颜色 */
+    .edit_group_box{
+        width: 340px;
+        min-height: 150px;
+        height: auto;
+        position: fixed;
+        top: 95px;
+        top: -150px;
+        left: 50%;
+        margin-left: -170px;
+        background-color: #f3f3f3;
+        z-index: 100;
+        transition: .5s all;
+        border-radius: 15px;
+    }
+    .edit_group_title{
+        height: 28px;
+        line-height: 28px;
+        position: absolute;
+        top: -14px;
+        left: 25px;
+        background-color: #000;
+        border-radius: 8px;
+        color: #fff;
+        padding: 0px 20px;
+        font-size: 14px;
+    }
+    .color_selector{
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 6px;
+        border: none;
+        width: 80px;
+        height: 30px;
+        line-height: 28px;
+        position: absolute;
+        left: 0;
+        top: 50px;
+        // border: 1px solid #6b6969;
+        -webkit-transition: .3s all;
+        transition: .3s all;
+        color: #fff;
+        padding-left: 10px;
+        border-right: none;
+    }
+    .edit_group{
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+
+    /* 删除 待办组 */
+    @keyframes deleteGroupShake{
+        10%,20%{-webkit-transform: rotate(-2deg);}
+        30%,50%,70%,90%{-webkit-transform: rotate(2deg);}
+        40%,60%,80%{-webkit-transform: rotate(-2deg);}
+        100%{-webkit-transform: rotate(0);}
+    }
+    @keyframes deleteGroup{
+        0% {transform: scale(1) rotate(0deg)}
+        10% {transform: scale(1) rotate(36deg)}
+        100% {transform: scale(0) rotate(360deg)}
+    }
+    .delete_group_shake{
+        z-index: 100;
+        animation: deleteGroupShake .7s ease-in 0s infinite alternate;
+        // animation: deleteGroupShake 10s linear 0s 1 both;
+    }
+    .delete_group{
+        animation: deleteGroup .7s ease-in 0s 1 alternate;
+        // animation: deleteGroupShake 10s linear 0s 1 both;
+    }
+
+
+    /* 待办组为空时，提示添用户添加 */
+    .no_find_box>p{
+        font-size: 12px;
+        color: #979090;
+        padding-left: 15px;
+        margin-top: 30px;
+    }
+    .no_find_box>a{
+        width: 270px;
+        height: 300px;
+        display: block;
+        margin-left: 10px;
+        background-repeat: no-repeat;
+        background-image: url(../../assets/img/todolist/arrows_bottom.png);
+        background-image: url('http://laijiayang.cn/todolist/imgs/today/arrows_bottom.png');
+    }
+    div#hjmap {
+        width: 100%;
+        height: 400px;
+    }
+
+
+    /* 强改ionic样式 */
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+        border-bottom: 0 !important;
+    }
+    
+
+    /* 沉浸式 */
+    // ion-content {
+    //     background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507605781398&di=5ecc84b6db4d03e58a73e54d3e8d14ff&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140221%2F234921-1402210U91038.jpg");
+    //     background-position-x: 50%;
+    //     background-size: cover;
+    //     background-repeat: no-repeat;
+    // }
+}

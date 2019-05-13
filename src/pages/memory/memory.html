@@ -1,0 +1,79 @@
+<ion-header #ionHeader no-border >
+  <ion-navbar #header >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>方块记忆</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="content_main" >
+    <!-- 游戏信息部分 -->
+    <div class="content_info">
+      <p>记住方块</p>
+      <div class="level_info">
+        <p>
+          Level: {{params.level}} &nbsp;&nbsp; | &nbsp;&nbsp; Combo: {{params.combo}} &nbsp;&nbsp; | &nbsp;&nbsp; lives: {{params.lives}}
+        </p>
+        <div>
+          score: {{params.score}}
+        </div>
+      </div>
+      <div class="combo_num" *ngIf="isComboNum">
+        <div class="combo_text">Combo</div>
+        <div class="combo_x">&nbsp;&nbsp;x&nbsp;&nbsp;</div>
+        <div class="combo_sum">{{params.combo}}</div>
+      </div>
+      <div class="combo_score" *ngIf="isComboScore">
+        <div class="combo_score_add">+</div>
+        <div class="combo_this_score">{{thisTimeScore}}</div>
+      </div>
+    </div>
+
+    <!-- 游戏部分 -->
+    <div class="content_memory">
+      <!-- 遮罩层，翻转未完成时禁止点击 -->
+      <div *ngIf="isReversal" class="mask_layer"></div>
+      
+      <!-- 大小方块部分 -->
+      <div *ngFor="let heightNum of widthArr;let heightIdx=index" class="x_memory_box">
+        <div class="x_memory_container">
+          <div *ngFor="let widthNum of widthArr;let widthIdx=index" class="def_square x_{{heightIdx}}_y_{{widthIdx}}" (tap)="squareEvent($event)" >
+              <!-- x_{{heightIdx}}_y_{{widthIdx}} -->
+          </div>
+        </div>
+      </div>
+
+      <!-- game over结束内容 -->
+      <div class="game_over" *ngIf="isGameOver">
+        <div class="show_over_info">
+          <p class="over_user_name">用户名1</p>
+          <div class="over_user">
+            <p class="over_user_maxlv">最高level：{{params.maxLv}}</p>
+            <p class="over_user_score">得分：{{params.score}}</p>
+            <p class="over_user_text">再来一次吧，说不定会更好?</p>
+            <button ion-button color="secondary" round outline (click)="againGame()" >Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 游戏排名 -->
+  <div class="reaction_rank" *ngIf="rankList.length">
+      <ion-list>
+        <ion-item *ngFor="let v of rankList, let i = index" >
+            <ion-avatar item-start>
+              <img [src]="getUserAvatar(i)">
+            </ion-avatar>
+            <h2>{{getUserNickname(i)}}</h2>
+            <h3>最高得分：{{v.score}} 分</h3>
+            <p>{{getUserIntro(i)}}</p>
+            <ion-note item-end>No.{{i+1}}</ion-note>
+        </ion-item>
+      </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,500 @@
+page-register {
+    .bg_register{
+        background-color: #082d5a;
+        background-image:url('http://laijiayang.cn/todolist/imgs/login/bg_register.jpg');
+        background-repeat:  no-repeat;
+        background-position: fixed;
+        background-size: contain;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: .5s all;
+    }
+    .bg_animate{
+        background-color: #0069EC;
+        width: 0%;
+        height: 100%;
+        transition: .5s all;
+    }
+    .register_title, .content_right_title{
+        width: 100%;
+        height: 50px;
+        position: absolute;
+        top: 20%;
+        line-height: 50px;
+        font-size: 30px;
+        color: #fff;
+        text-align: center;
+    }
+    .edit_info_box{
+        border-radius: 10px;
+        background-color: #fff;
+        width: 250px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        transition: .5s all;
+        margin: -50px 0 0 -125px;
+        box-shadow: 4px 6px rgba(0, 1, 0, 0.2);
+        top: 50%;
+    }
+    .input_box { 
+        position: relative;
+        padding-top: 15px; 
+        padding-left: 25px;
+        vertical-align: middle;
+    } 
+    .input_box .input{
+        border-bottom: 1px solid #000;
+        border-radius: 6px;
+        width: 200px;
+        height: 40px;
+        line-height: 38px;
+        position: relative;
+    }
+    .input_box input{
+        width: 94%;
+        height: 84%;
+        border: none;
+        position: absolute;
+        outline: medium;
+        left: 3%;
+        top: 16%;
+    }
+    .input_box label { 
+        position: absolute; 
+        color: gray;
+        bottom: 0; 
+        font-size: 14px;
+        opacity: 0; 
+        transform: translateY(0); 
+        transition: all 0.2s ease-out;
+    } 
+    input::-webkit-input-placeholder {//webkit内核
+        // color: #D6D0CA;
+        color: #000;
+        font-size:18px;
+    }
+    .next_btn{
+        padding-top: 10px; 
+        text-align: center;
+        position: relative;
+    }
+    .next{
+        width: 200px;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        margin-left: -100px;
+        padding: 0;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color:#fff;
+        transform: translateZ(0);
+        background: #25a3ff;
+        z-index: 1;
+    }
+    .next_after{
+        width: 0px;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        margin-left: -100px;
+        padding: 0;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color:#fff;
+        transform: translateZ(0);
+        background: #0069ec;
+        transition: .5s all;
+        z-index: 2;
+        opacity: 0;
+    }
+    .toast{
+        width: 260px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        top: 50%;
+        left: 50%;
+        transition: .5s all;
+        margin: -20px 0 0 -130px;
+        box-shadow: 3px 5px rgba(0, 1, 0, 0.2);
+        border-radius: 5px;
+        position: absolute;
+        z-index: 3;
+        display: block;
+        opacity: 1;
+        display: 'none';
+        background: rgba(172, 218, 247, 0.44);
+    }
+
+    /* 左滑 */
+    .to_login{
+        position: absolute;
+        right: -5px;
+        top: 70%;
+        width: 170px;
+        height: 40px;
+        background-color: #dbd0d036;
+        background-color: rgba($color: #dbd0d0, $alpha: 0.36);
+        border-radius: 8px;
+        z-index: 3;
+    }
+    .to_login_top{
+        position: relative;
+        width: 170px;
+        height: 20px;
+    }
+    .to_login_bottom{
+        position: relative;
+        width: 170px;
+        height: 20px;
+    }
+    .top_arrow_left, .to_login_top:before, .to_login_top::after{
+        position: absolute;
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        bottom: -2.4px;
+        background-color: #fff;
+    }
+    .bottom_arrows_left, .to_login_bottom::before, .to_login_bottom::after{
+        position: absolute;
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        top: -2px;
+        background-color: #fff;
+    }
+    .top_arrow_left{
+        left: 40px;
+        transform: rotate(45deg) skewY(-45deg);
+        background-color: #ffffff8c;
+        background-color: rgba(255,255,255,0.5);
+    }
+    .to_login_top::before{
+        content: "";
+        left: 15px;
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .to_login_top::after{
+        content: "";
+        left: 65px;
+        background-color: #ffffff30;
+        background-color: rgba(255,255,255,0.2);
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .bottom_arrows_left{
+        left: 40px;
+        background-color: #ffffff8c;
+        background-color: rgba(255,255,255,0.5);
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .to_login_bottom::before{
+        content: "";
+        left: 15px;
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .to_login_bottom::after{
+        content: "";
+        left: 65px;
+        background-color: #ffffff30;
+        background-color: rgba(255,255,255,0.2);
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .left_swipe{
+        width: 80px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -10px;
+        line-height: 20px;
+        color: rgba(255,255,255,0.3)
+    }
+
+    /* 右滑 */
+    .to_register{
+        position: absolute;
+        left: -5px;
+        top: 70%;
+        width: 170px;
+        height: 40px;
+        background-color: #dbd0d036;
+        background-color: rgba($color: #dbd0d0, $alpha: 0.36);
+        border-radius: 8px;
+        z-index: 5;
+    }
+    .to_register_top{
+        position: relative;
+        width: 170px;
+        height: 20px;
+    }
+    .to_register_bottom{
+        position: relative;
+        width: 170px;
+        height: 20px;
+    }
+    .top_arrow_right, .to_register_top:before, .to_register_top::after{
+        position: absolute;
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        bottom: -2.4px;
+        background-color: #fff;
+    }
+    .bottom_arrow_right, .to_register_bottom::before, .to_register_bottom::after{
+        position: absolute;
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        top: -2px;
+        background-color: #fff;
+    }
+    .top_arrow_right{
+        left: 40px;
+        transform: rotate(-45deg) skewY(45deg);
+        background-color: #ffffff8c;
+        background-color: rgba(255,255,255,0.5);
+    }
+    .to_register_top::before{
+        content: "";
+        left: 15px;
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .to_register_top::after{
+        content: "";
+        left: 65px;
+        background-color: #ffffff30;
+        background-color: rgba(255,255,255,0.2);
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .bottom_arrow_right{
+        left: 40px;
+        background-color: #ffffff8c;
+        background-color: rgba(255,255,255,0.5);
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .to_register_bottom::before{
+        content: "";
+        left: 15px;
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .to_register_bottom::after{
+        content: "";
+        left: 65px;
+        background-color: #ffffff30;
+        background-color: rgba(255,255,255,0.2);
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .right_swipe{
+        width: 80px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -10px;
+        line-height: 20px;
+        color: rgba(255,255,255,0.3)
+    }
+
+    /* 右滑返回 */
+    .to_back{
+        position: absolute;
+        left: -5px;
+        top: 70%;
+        width: 170px;
+        height: 40px;
+        background-color: #dbd0d036;
+        background-color: rgba($color: #dbd0d0, $alpha: 0.36);
+        border-radius: 8px;
+        z-index: 5;
+    }
+    .to_back_top{
+        position: relative;
+        width: 170px;
+        height: 20px;
+    }
+    .to_back_bottom{
+        position: relative;
+        width: 170px;
+        height: 20px;
+    }
+    .top_arrow_right_back, .to_back_top:before, .to_back_top::after{
+        position: absolute;
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        bottom: -2.4px;
+        background-color: #fff;
+    }
+    .bottom_arrow_right_back, .to_back_bottom::before, .to_back_bottom::after{
+        position: absolute;
+        display: inline-block;
+        width: 5px;
+        height: 15px;
+        top: -2px;
+        background-color: #fff;
+    }
+    .top_arrow_right_back{
+        right: 40px;
+        transform: rotate(-45deg) skewY(45deg);
+        background-color: #ffffff8c;
+        background-color: rgba(255,255,255,0.5);
+    }
+    .to_back_top::before{
+        content: "";
+        right: 15px;
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .to_back_top::after{
+        content: "";
+        right: 65px;
+        background-color: #ffffff30;
+        background-color: rgba(255,255,255,0.2);
+        transform: rotate(-45deg) skewY(45deg);
+    }
+    .bottom_arrow_right_back{
+        right: 40px;
+        background-color: #ffffff8c;
+        background-color: rgba(255,255,255,0.5);
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .to_back_bottom::before{
+        content: "";
+        right: 15px;
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .to_back_bottom::after{
+        content: "";
+        right: 65px;
+        background-color: #ffffff30;
+        background-color: rgba(255,255,255,0.2);
+        transform: rotate(45deg) skewY(-45deg);
+    }
+    .right_swipe_back{
+        width: 80px;
+        height: 20px;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        margin-top: -10px;
+        line-height: 20px;
+        color: rgba(255,255,255,0.3)
+    }
+
+    /* content_right - css */
+    .content_right{
+        background-color: transparent;
+        position: absolute;
+        z-index: 4;
+        transition: .5s all;
+        top: 0;
+    }
+    .login_input_box{
+        width: 300px;
+        height: 180px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -90px 0 0 -150px;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        box-shadow: 4px 7px rgba(0, 1, 0, 0.2);
+    }
+    .login_box{
+        width: 220px;
+        height: auto;
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        margin-left: -110px;
+    }
+    .tel_input, .pwd_input{
+        border-bottom: 1px solid #fff;
+        border-radius: 6px;
+        width: 220px;
+        height: 40px;
+        line-height: 38px;
+        position: relative;
+        transition: .3s all;
+    }
+    .tel_input input, .pwd_input input{
+        width: 94%;
+        height: 84%;
+        border: none;
+        position: absolute;
+        outline: medium;
+        left: 3%;
+        top: 16%;
+        color: #fff;
+        background: transparent;
+    }
+    .tel_input input::-webkit-input-placeholder, .pwd_input input::-webkit-input-placeholder{//webkit内核
+        // color: #D6D0CA;
+        color: #ffe;
+        color: rgba($color: #fff, $alpha: 0.36);
+        font-size:18px;
+    }
+    .pwd_input{
+        margin-top: 15px;
+    }
+    .login_btn{
+        width: 200px;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        margin-left: -100px;
+        padding: 0;
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #988d8d;
+        background: linear-gradient(to bottom,#fff -25%, #d2e3f7, #fff 130%);
+        bottom: 15px;
+    }
+
+    /* login - css */
+    .bg_login{
+        // width: 100%;
+        // height: 100%;
+        background-color: #25a3ff;
+        background-image:url('http://laijiayang.cn/todolist/imgs/login/bg_login.jpg');
+        transition: .5s all;
+        display: none;
+        position: absolute;
+    }
+
+
+    /* 测试用 - start */
+    // .content_right{
+    //     left: 0 !important;
+    // }
+    // .bg_login{
+    //     display: block !important;
+    //     transform: rotate(-90deg) !important;
+    //     transform-origin: 0px 0px !important;
+    // }
+    // .bg_register{
+    //     transform: rotate(-90deg) !important;
+    //     transform-origin: 0px 100% !important;
+    // }
+    // .to_login{
+    //     display: none;
+    // }
+    /* 测试用 - end */
+}

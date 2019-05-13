@@ -1,0 +1,187 @@
+<!-- 加入no-border让header无边框 -->
+<ion-header [hidden]="!isShowHeader" #ionHeader no-border >
+<!-- <ion-header #ionHeader no-border > -->
+  <!-- 加入transparent让header透明 -->
+  <ion-navbar transparent #header >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <div class="title_content">
+      <div class="today_weather">
+        <img [src]="getTodayWeatherIcon()" alt="">
+      </div>
+      <div class="today_weather_temp">
+        {{getTodayWeatherTmp()}}°C
+        <a style="font-size:12px;color:#fff;">{{getTodayWeatherCondTxt()}}</a>
+      </div>
+      <div class="show_time">
+        <div class="show_time_year">{{nowDate.year}}</div>
+        <div class="show_time_month">{{nowDate.month}}</div>
+        <div class="show_time_today">{{nowDate.day}}</div>
+      </div>
+      <div class="show_time_date">{{nowDate.date}}</div>
+      <div class="today_text">
+        <img alt="今日诗词" src="https://v2.jinrishici.com/one.svg?font-size=20&spacing=2&color=gray">
+      </div>
+    </div>
+    <!-- <ion-title>Today</ion-title> -->
+  </ion-navbar>
+</ion-header>
+
+<!-- <ion-content > -->
+<ion-content (ionScroll)="ionContentScroll($event)" fullscreen >
+
+  <!-- 禁止其他操作 遮罩层 -->
+  <div class="disable_other_shade" *ngIf="isShowOtherShade" (tap)="closeOtherShade(false)" ></div>
+
+  <!-- 待办事项列表 -->
+  <div class="group_items_box" *ngFor="let v of groupList, let i = index" (press)="deleteGroup(i)" >
+    <div class="close_other" (tap)="closeOtherShade(true, i)"><ion-icon [style.color]="v.color" name="close"></ion-icon></div>
+    <div class="group_items_title" [style.backgroundColor]="v.color" (tap)="editGroup(i, v.groups, v.color)" >{{v.groups}}</div>
+    <div class="group_items">
+      <ion-list no-lines>
+        <!-- <ion-item-sliding #items *ngFor="let val of itemsList[i], let idx = index"> -->
+        <ion-item-sliding #items *ngFor="let val of getItemsList(i), let idx = index" (tap)="editItemsDoubleClick(i, idx, val.items, items)">
+          <ion-item >
+            <div [style.textDecorationColor]="val.color" [ngStyle]="val.is_finish?itemsTitleStyle.on:itemsTitleStyle.off" class="items_title">{{val.items}}</div>
+            <span class="items_checked_off" *ngIf="!val.is_finish" (tap)="checked(i, idx, val.items, val.is_finish, items)" ><ion-icon name="radio-button-off"></ion-icon></span>
+            <span class="items_checked_on" *ngIf="val.is_finish" (tap)="checked(i, idx, val.items, val.is_finish, items)" [style.color]="v.color" ><ion-icon name="checkmark-circle"></ion-icon></span>
+          </ion-item>
+          <ion-item-options side="left">
+            <button class="side_checked" ion-button *ngIf="!val.is_finish" (tap)="checked(i, idx, val.items, val.is_finish, items)" >
+              <ion-icon name="sad"></ion-icon>
+            </button>
+            <button class="side_checked" [style.backgroundColor]="v.color" style="color: #fff" ion-button *ngIf="val.is_finish" (tap)="checked(i, idx, val.items, val.is_finish, items)" >
+              <ion-icon name="happy"></ion-icon>
+            </button>
+          </ion-item-options>
+          <!-- color="secondary" -->
+          <ion-item-options side="right">
+            <button ion-button color="primary" (tap)="editItems(i, idx, val.items, items)" >
+              <ion-icon name="create"></ion-icon>
+              编辑
+            </button>
+            <button ion-button color="danger" (tap)="deleteItems(i, idx, val.items, items)" >
+              <ion-icon name="trash"></ion-icon>
+              删除
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+  </div>
+
+  <!-- 待办组为空时，提示添用户添加 -->
+  <div class="no_find_box" *ngIf="!groupList.length" >
+    <!-- <div id="hjmap" #hjmap></div> -->
+    <p>
+      今天什么事都没有，快添加点事儿做吧~
+    </p>
+    <a></a>
+  </div>
+
+</ion-content>
+
+<!-- 添加 待办 按钮 -->
+<div class="add_list" >
+  <ion-icon name="add" *ngIf="!isShowShade" (tap)="addBtnEvent(isAddStatus)" ></ion-icon>
+  <ion-icon name="add" *ngIf="isShowShade" ></ion-icon>
+  <div class="add_list_name" (tap)="addToDoGroup()" ></div>
+  <div class="add_list_item" (tap)="addToDoItems()" ></div>
+
+  <!-- <div>
+    <ion-icon name="create"></ion-icon>
+    <ion-icon name="document"></ion-icon>
+    <ion-icon name="paper"></ion-icon>
+  </div> -->
+</div>
+
+<!-- 弹出框 遮罩层 -->
+<div class="shade" *ngIf="isShowShade" (tap)="closeShade()" >
+  <div class="close_shade" (tap)="closeShade()" ><ion-icon name="close"></ion-icon></div>
+</div>
+
+<!-- 添加待办组 -->
+<div class="add_group_box" *ngIf="isShowAddGroup">
+  <div class="add_group_title">添加待办组</div>
+  <div class="add_group">
+    <div class="add_input_box">
+      <div class="add_group_input_box">
+        <input type="text" placeholder="请输入组名" class="add_group_input" [(ngModel)]="groupName" (keypress)='addToGroup(true, groupName, $event)' >
+      </div>
+      <div class="add_group_event" (tap)="addToGroup(false, groupName)" >
+        <ion-icon name="checkmark"></ion-icon>
+      </div>
+    </div>
+    <div class="add_group_list_box">
+        <span>已有的待办组：</span>
+      <div *ngFor="let v of groupList" class="add_group_list" [style.backgroundColor]="v.color" >{{v.groups}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- 添加待办事项 -->
+<div class="add_items_box" *ngIf="isShowAddItems">
+  <div class="add_items_title">添加待办事项</div>
+  <div class="add_items">
+    <div class="add_input_box">
+      <div class="add_items_input_box">
+        <input type="text" placeholder="请输入待办事项" class="add_items_input" [(ngModel)]="itemsName" (keypress)='addToItems(true, itemsName, $event)' >
+      </div>
+      <div class="add_items_event" (tap)="addToItems(false, itemsName)" >
+        <ion-icon name="checkmark"></ion-icon>
+      </div>
+    </div>
+    <div class="add_items_list_box">
+      <span>添加到该组：</span>
+      <div *ngFor="let v of groupList" class="add_items_list" (tap)="checkAddItems(v.groups, $event)" >{{v.groups}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- 编辑 待办事项名称 -->
+<div class="edit_items_box" *ngIf="isShowEditItems" >
+  <div class="edit_items">
+      <div class="add_input_box">
+        <div class="add_items_input_box">
+          <input type="text" #editItemsInput placeholder="请输入待办事项" class="add_items_input" [(ngModel)]="currentEditItems.name" (keypress)='confirmItemsName(true, currentEditItems.name, $event)' >
+          <!-- <ion-input type="text" #editItemsInput placeholder="请输入待办事项" class="add_items_input" [(ngModel)]="currentEditItems.name" ></ion-input> -->
+        </div>
+        <div class="add_items_event" (tap)="confirmItemsName(false, currentEditItems.name)" >
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </div>
+  </div>
+</div>
+
+<!-- 编辑 待办事项组名 & 组颜色 -->
+<div class="edit_group_box" *ngIf="isShowEditGroup" >
+  <div class="edit_group_title" [style.backgroundColor]="currentEditGroup.color" >修改待办组</div>
+  <div class="edit_group">
+      <div class="add_input_box">
+        <div class="add_group_input_box">
+          <input type="text" placeholder="请输入待办组" class="add_group_input" [(ngModel)]="currentEditGroup.name" >
+        </div>
+        <input class="color_selector" value="点击选色"
+          [style.background]="currentEditGroup.color"
+          [cpAlphaChannel]="'always'"
+          [cpOutputFormat]="'rgba'"
+          (tap)="stopDefaultBlur()"
+          [(colorPicker)]="currentEditGroup.color"
+          (colorPickerChange)="colorPicker($event)" />
+
+        <!-- https://segmentfault.com/a/1190000014777946 -->
+        <!-- dayjs的api  https://github.com/iamkun/dayjs/blob/master/docs/zh-cn/API-reference.md#%E5%BD%93%E5%89%8D%E6%97%B6%E9%97%B4 -->
+        <!-- 小米天气接口介绍   https://raw.githubusercontent.com/jokermonn/-Api/master/XiaomiWeather.md -->
+        <!-- 小米天气接口  https://weatherapi.market.xiaomi.com/wtr-v3/weather/all?latitude=22.529605019869&longitude=113.94339045511&isLocated=true&locationKey=weathercn%101280601&days=7&appKey=weather20181219&sign=zUFJoAR2ZVrDy1vF3D07&isGlobal=false&locale=zh_cn -->
+        <!-- 地区 id  https://github.com/jokermonn/-Api/blob/master/Meizu_cities.json -->
+        <!-- 已完成： 双击编辑 、 获得input焦点 、 遮罩层模糊 、 编辑框动画效果  、 向下滚动隐藏顶部 、  -->
+        <!-- 1、要监听 上下滑动事件，来判断删除完的 待办组之后 ，再也无法显示header的问题 -->
+        <!-- 2、要让header消失和隐藏更平滑 & 滑动太快导致header样式问题 & 只有三个待办组时,不能向下滑动到header隐藏 -->
+        <!-- 待办空空如也，快添加一些吧，跟换添加按钮为ionic组件 -->
+        <div class="add_group_event" (tap)="confirmGroupName(currentEditGroup.name)" >
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </div>
+  </div>
+</div>

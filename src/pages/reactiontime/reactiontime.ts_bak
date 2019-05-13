@@ -1,0 +1,184 @@
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { ApiProvider } from '../../providers/api/api';
+import { BaseUi } from '../../common/baseui';
+
+@IonicPage()
+@Component({
+  selector: 'page-reactiontime',
+  templateUrl: 'reactiontime.html',
+})
+export class ReactiontimePage extends BaseUi {
+  @ViewChild('background') background
+
+  isShowBegin: boolean = true
+  isShowWait: boolean = false
+  isShowClick: boolean = false
+  isShowFast: boolean = false
+  isShowComplete: boolean = false
+  beginInterval: any
+  randomSecondNum: number
+  timing = {
+    begin: 0,
+    end: 0,
+    result: 0
+  }
+  uid: any
+  rankList = []
+
+  constructor(public navCtrl: NavController, 
+    public el: ElementRef,
+    public storage : Storage ,
+    public api: ApiProvider,
+    public toastCtrl: ToastController,
+    public navParams: NavParams) {
+      super()
+  }
+
+  ionViewDidLoad() {
+    // 先获取该用户 uid
+    this.getUserId().then((val)=>{ 
+      this.uid = val
+      this.getReactionTimeRank(val)
+    })
+  }
+
+  ionViewDidEnter(){
+    // this.background.nativeElement.style.backgroundColor = '#4bdb6a'
+    this.changeBgColor('reaction_over')
+  }
+  
+  randomSecond(){
+    return Math.random() * 4000 + 1000
+  }
+  
+  getUserId(): Promise<string> {
+    return this.storage.get('uid').then((value) => {
+      return value;
+    });
+  }
+
+  changeBgColor(str){
+    this.background.nativeElement.classList.remove('reaction_wait') // 红
+    this.background.nativeElement.classList.remove('reaction_true') // 绿
+    this.background.nativeElement.classList.remove('reaction_over') // 蓝
+    if(str){
+      this.background.nativeElement.classList.add(str)
+    }else{
+      this.background.nativeElement.classList.add('reaction_over')
+    }
+  }
+
+  getReactionTimeRank(uid){
+    // 获得排名列表
+    this.api.reactionTimeList(this.uid)
+      .subscribe(f=>{
+        if(f["status"]==true){
+          this.rankList = f['data']
+        }else{
+          super.showToast(this.toastCtrl, '获取排名列表失败，请检查网络状态')
+        }
+      },error => console.error('错误：' + error) );
+  }
+
+  gaming(){
+    // 提前随机一个秒数
+    this.randomSecondNum = parseInt(this.randomSecond() + '')
+    // 计时器 开始
+    this.timing.begin = new Date().getTime()
+    // 通过这个秒数设定一个 定时器
+    this.beginInterval = setTimeout(() => {
+      this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_wait')
+      this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_over')
+      this.isShowWait = false
+      this.el.nativeElement.querySelector('.action_content').classList.add('reaction_true')
+      this.isShowClick = true
+    }, this.randomSecondNum);
+  }
+
+  beginGame(){
+    this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_over')
+    this.isShowBegin = false
+    this.el.nativeElement.querySelector('.action_content').classList.add('reaction_wait')
+    this.isShowWait = true
+
+    this.gaming()
+  }
+
+  handleReaction(){
+    // 超前按下了，不计入数据结果
+    this.timing.end = new Date().getTime()
+    // 清空定时器
+    clearTimeout(this.beginInterval)
+    // if((this.timing.end - this.timing.begin) > this.randomSecondNum){
+    //   // 正常点击
+    //   this.timing.result = (this.timing.end - this.timing.begin) - this.randomSecondNum
+    //   this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_wait')
+    //   this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_over')
+    //   this.isShowWait = false
+    //   this.el.nativeElement.querySelector('.action_content').classList.add('reaction_true')
+    //   this.isShowComplete = true
+    // }else{
+      this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_wait')
+      this.isShowWait = false
+      this.el.nativeElement.querySelector('.action_content').classList.add('reaction_over')
+      this.isShowFast = true
+    // }
+  }
+
+  againGame(){
+    this.timing.end = new Date().getTime()
+    this.timing.result = (this.timing.end - this.timing.begin) - this.randomSecondNum
+
+    this.el.nativeElement.querySelector('.action_content').classList.add('reaction_over')
+    this.isShowFast = false
+    this.el.nativeElement.querySelector('.action_content').classList.add('reaction_true')
+    this.isShowComplete = false
+    this.el.nativeElement.querySelector('.action_content').classList.add('reaction_wait')
+    this.isShowWait = true
+    
+    this.gaming()
+  }
+
+  handleClick(){
+    this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_wait')
+    this.isShowClick = false
+    this.el.nativeElement.querySelector('.action_content').classList.remove('reaction_true')
+    this.isShowWait = false
+    this.el.nativeElement.querySelector('.action_content').classList.add('reaction_over')
+    this.isShowComplete = true
+  }
+
+  beforeHandle(){
+    this.timing.end = new Date().getTime()
+    this.timing.result = (this.timing.end - this.timing.begin) - this.randomSecondNum
+    this.api.reactionTimeAdd(this.uid, this.timing.result, 0)
+      .subscribe(f=>{
+        if(f["status"]==true){
+          // 成功存入无效成绩
+        }else{
+          super.showToast(this.toastCtrl, '成绩录入失败，请检查网络状态')
+        }
+      },error => console.error('错误：' + error) );
+
+    this.againGame()
+  }
+
+  justHandle(){
+    this.timing.end = new Date().getTime()
+    this.timing.result = (this.timing.end - this.timing.begin) - this.randomSecondNum
+    this.api.reactionTimeAdd(this.uid, this.timing.result, 1)
+      .subscribe(f=>{
+        if(f["status"]==true){
+          // 成功存入无效成绩
+        }else{
+          super.showToast(this.toastCtrl, '成绩录入失败，请检查网络状态')
+        }
+      },error => console.error('错误：' + error) );
+
+    this.againGame()
+  }
+
+
+}

@@ -1,0 +1,37 @@
+<ion-header #ionHeader no-border >
+  <ion-navbar #header >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>关于</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <ion-list>
+    <ion-item>
+      App : {{appName}}
+    </ion-item>
+    <ion-item>
+      功能 : {{packageName}}
+    </ion-item>
+    <ion-item>
+      版本 : {{versionCode}}
+    </ion-item>
+    <ion-item>
+      版本号 : {{versionNumber}}
+    </ion-item>
+    <ion-item>
+      作者 : 刘胜
+    </ion-item>
+    <ion-item>
+      联系方式 : black.liusheng@gmail.com
+    </ion-item>
+    <ion-item>
+      Github : github.com/liusheng22/today
+    </ion-item>
+    <ion-item>
+      该web项目 : laijiayang.cn/today
+    </ion-item>
+  </ion-list>
+</ion-content>

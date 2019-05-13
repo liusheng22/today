@@ -1,0 +1,66 @@
+<ion-header #ionHeader no-border >
+  <ion-navbar #header >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>设置</ion-title>
+  </ion-navbar>
+</ion-header>
+  
+  <ion-content>
+      <ion-list class="marginTop">
+        <button ion-item (click)="jumpUserPage()" >
+          <ion-avatar item-start>
+            <img [src]="getUserAvatar()" />
+          </ion-avatar>
+          <h2>{{getUserNickname()}}</h2>
+          <p>{{getUserIntro()}}</p>
+        </button>
+      </ion-list>
+
+      <ion-list class="list_content" no-border>
+          <ion-list-header>
+            工具
+          </ion-list-header>
+      
+          <button ion-item (click)="goToScanQRCode()" >
+            <ion-icon name='qr-scanner' color="dark" item-start></ion-icon>
+            <ion-label>
+              扫描二维码
+            </ion-label>
+          </button>
+
+          <ion-item>
+            <ion-toggle color="purple" checked="false" (ionChange)="cutTheme()" ></ion-toggle>
+              <ion-label>
+                夜间模式
+              </ion-label>
+            <ion-icon name='cloudy-night' color="purple" item-start></ion-icon>
+          </ion-item>
+      </ion-list>
+
+      <ion-list class="list_content">
+          <ion-list-header >
+            系统
+          </ion-list-header>
+      
+          <!-- <button ion-item>
+            <ion-icon name='settings' item-start></ion-icon>
+            设置
+          </button> -->
+      
+          <button ion-item (tap)="goToVersions()" >
+            <ion-icon name='help-circle' color="secondary" item-start></ion-icon>
+              关于
+            <ion-note item-end>关于该app</ion-note>
+          </button>
+
+          <button ion-item (tap)="exit()" >
+            <ion-icon name='exit' color="danger" item-start></ion-icon>
+              退出
+            <ion-note item-end>退出登录</ion-note>
+          </button>
+        </ion-list>
+
+  </ion-content>
+  

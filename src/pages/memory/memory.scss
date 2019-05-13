@@ -1,0 +1,223 @@
+page-memory {
+    .content_main{
+        background-color: #2b87d1;
+        width: 100%;
+        height: 100%;
+    }
+    .content_info{
+        width: 100%;
+        height: 30%;
+        position: relative;
+    }
+
+    // 关卡信息
+    .content_info>p{
+        text-align: center;
+        font-weight: 800;
+        font-size: 18px;
+        color: #fff;
+        margin: 0;
+    }
+    .level_info>p{
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+    }
+    .level_info>div{
+        text-align: center;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    // Combo 部分
+    .combo_num{
+        width: 380px;
+        height: 50px;
+        position: absolute;
+        left: 10px;
+        bottom: 50px;
+        transform:rotate(-12deg);
+    }
+    .combo_text{
+        font-size: 40px;
+        color: yellowgreen;
+        display: inline-block;
+    }
+    .combo_x{
+        font-size: 30px;
+        color: red;
+        display: inline-block;
+    }
+    .combo_sum{
+        font-size: 35px;
+        color: orangered;
+        display: inline-block;
+    }
+    .combo_score{
+        width: 250px;
+        height: 50px;
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        text-align: right;
+    }
+    .combo_score_add{
+        display: inline-block;
+        font-size: 35px;
+        color: orangered;
+    }
+    .combo_this_score{
+        display: inline-block;
+        font-size: 40px;
+        color: red;
+    }
+
+    // 弹性布局
+    .content_memory{
+        display: -webkit-flex;
+        display: flex;
+        width: 100%;
+        height: 400px;    // 改动态的
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+    .mask_layer{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 100;
+    }
+    .x_memory_box{
+        position: relative;
+        width: 100%;
+        height: 30%;    // 改动态的
+        // margin: 10px 0;
+    }
+    .x_memory_container{
+        display: -webkit-flex;
+		display: flex;
+		width: 100%;
+		height: 100%;
+		justify-content: space-between;
+    }
+    .def_square{
+		height: 100%;
+		width: 30%;    // 改动态的
+        // margin:0 10px;
+        background-color: rgba(0,0,0,0.1);
+        border-radius: 10px;
+        border-width: 10px;
+        text-align: center;
+        animation: all .5s linear;
+    }
+
+    // game over 部分
+    .game_over{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 101;
+    }
+    .show_over_info{
+        margin-top: 20%;
+        width: 100%;
+        height: auto;
+    }
+    .over_user_name{
+        text-align: center;
+        font-size: 36px;
+        color: #fff;
+    }
+    .over_user{
+        text-align: center;
+    }
+    .over_user_maxlv, .over_user_score, .over_user_text{
+        text-align: center;
+        font-size: 25px;
+        color: #fff;
+    }
+
+    // 翻转后的两种状态
+    .fail_square{
+        background-color: rgba(0,0,0,0.5)
+    }
+    .succ_square{
+        background-color: rgba(255,255,255,1)
+    }
+
+    // Y轴旋转动画
+    @keyframes squareRotateStatic {
+        to {
+            transform: rotateX(180deg) translateZ(1px)
+        }
+    }
+    @keyframes squareRotateBack {
+        to {
+            transform: rotateX(360deg) translateZ(1px)
+        }
+    }
+    @keyframes squareRotateShow {
+        0% {transform: rotateX(0deg) translateZ(1px)}
+        10% {
+            transform: rotateX(0deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        20% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        30% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        40% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        50% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        60% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        70% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        80% {
+            transform: rotateX(180deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        90% {
+            transform: rotateX(360deg) translateZ(1px);
+            background-color: rgba(255,255,255,1)
+        }
+        100% {transform: rotateX(360deg) translateZ(1px)}
+    }
+    @keyframes squareRotateY {
+        0% {transform: rotateX(0deg) translateZ(1px)}
+        50% {transform: rotateX(180deg) translateZ(1px)}
+        100% {transform: rotateX(360deg) translateZ(1px)}
+    }
+    .square_rotate_y{
+        animation: squareRotateY .5s ease-in forwards;
+    }
+    .square_rotate_static{
+        animation: squareRotateStatic .5s ease-in forwards;
+    }
+    .square_rotate_back{
+        animation: squareRotateBack .5s ease-in forwards;
+    }
+    .square_rotate_show{
+        animation: squareRotateShow 3s linear forwards;
+    }
+
+}

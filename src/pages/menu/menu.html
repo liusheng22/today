@@ -1,0 +1,38 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        <div style="height: 162px;width:100%;position: relative;">
+            <ion-chip class="avatar_user">
+                <ion-avatar>
+                  <!-- <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"> -->
+                  <img [src]="getUserAvatar()">
+                </ion-avatar>
+                <ion-label>{{getUserNickname()}}</ion-label>
+            </ion-chip>
+            <div class="intro_user">
+              <p>{{getUserIntro()}}</p>
+            </div>
+            <div class="setting_user">
+              <ion-icon name="settings" (click)="toSetting()" ></ion-icon>
+            </div>
+        </div>
+      </ion-title>
+      <!-- <div style="height: 180px;width:100%;">
+        11
+      </div> -->
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let page of pages" (click)="openPage(page)">
+      	<ion-icon item-start [name]="page.icon" [color]="isActive(page)"></ion-icon>
+        {{page.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [hidden]="isShowIonNav" ></ion-nav>
+<!-- <ion-nav [root]="SpecialPage" #content swipeBackEnabled="false" ></ion-nav> -->

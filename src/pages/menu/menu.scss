@@ -1,0 +1,44 @@
+page-menu {
+    .menu-inner .header{
+        height: 162px !important;
+    }
+    .menu-inner .toolbar{
+        height: 100% !important;
+    }
+    .menu-inner .header .toolbar{
+        padding: 0;
+    }
+    .menu-inner .header .toolbar .toolbar-background{
+        background-image: url(../../../../assets/img/weather/city_other_rainy.png);
+        background-image: url('http://laijiayang.cn/todolist/imgs/menu/city_other_rainy.png');
+        background-size: contain;
+    }
+    .menu-inner .title{
+        padding: 0 !important;
+    }
+
+    .avatar_user{
+        position: absolute;
+        left: 5px;
+        top: 5px;
+    }
+    .intro_user{
+        position: absolute;
+        left: 5px;
+        top: 30px;
+        text-align: left;
+    }
+    .intro_user>p{
+        color: #fff;
+        font-size: 12px;
+        width: 280px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+    .setting_user{
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+}

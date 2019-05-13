@@ -1,0 +1,52 @@
+page-reactiontime {
+    // 游戏部分
+    .reaction_content{
+        width: 100%;
+        height: 50%;
+        position: relative;
+    }
+    .reaction_wait{
+        background-color: #ce2636;
+    }
+    .reaction_true{
+        background-color: #4bdb6a;
+    }
+    .reaction_over{
+        background-color: #2b87d1;
+    }
+    .action_content{
+        width: 100%;
+        height: 100%;
+    }
+    .action_text, .action_fast, .action_click{
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        line-height: 400px;
+        background-color: transparent;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+    }
+    .action_presentation, .action_complete{
+        color: #fff;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+    }
+    .action_presentation>div, .action_complete>div{
+        margin-top: 30%;
+    }
+
+    // 排名部分
+    .reaction_rank{
+        width: 100%;
+        height: 30%;
+        position: relative;
+    }
+}

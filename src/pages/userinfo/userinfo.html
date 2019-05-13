@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" >
+        <span ion-text color="primary" showWhen="ios" >取消</span>
+        <ion-icon name="md-close" showWhen="android" ></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>用户中心</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="marginTop marginBottom">
+    <button ion-item >
+      <ion-avatar item-start>
+        <img [src]="getUserAvatar()" />
+      </ion-avatar>
+      <h2>{{getUserUname()}}</h2>
+    </button>
+  </ion-list>
+
+  <ion-list>
+    <!-- <ion-item>
+      <ion-label>用户名 :</ion-label>
+      <ion-input type="text" [(ngModel)]="uname" disabled="true"></ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label>昵称 :</ion-label>
+      <ion-input type="text" [(ngModel)]="nickname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>简介 :</ion-label>
+      <ion-input type="text" [(ngModel)]="intro"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>性别</ion-label>
+      <ion-select [(ngModel)]="gender">
+        <ion-option value="1">男</ion-option>
+        <ion-option value="0">女</ion-option>
+        <ion-option value="-1">未知</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>手机 :</ion-label>
+      <ion-input type="text" [(ngModel)]="phone" disabled="true" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>邮箱 :</ion-label>
+      <ion-input type="text" [(ngModel)]="email" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>地址 :</ion-label>
+      <ion-input type="text" [(ngModel)]="address" ></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <div padding text-center class="paddingTop">
+    <button ion-button color="primary" block (tap)="updateUserInfo()">保存</button>
+  </div>
+</ion-content>

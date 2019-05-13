@@ -1,0 +1,34 @@
+<ion-header #ionHeader no-border >
+  <ion-toolbar #header>
+    <button ion-button menuToggle icon-only start >
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>意见反馈</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="sendQuestion()" >
+        <ion-icon name="send"></ion-icon>
+        发送
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="question">
+    <div class="question_title">
+      问题和意见：
+    </div>
+    <div class="question_content">
+      <textarea name="" id="" cols="30" rows="10" [(ngModel)]="question" ></textarea>
+    </div>
+  </div>
+
+  <div class="qq">
+    <div class="qq_title">
+      QQ/邮箱/电话：
+    </div>
+    <div class="qq_content">
+      <textarea name="" id="" cols="30" rows="10" [(ngModel)]="qq" ></textarea>
+    </div>
+  </div>
+</ion-content>
